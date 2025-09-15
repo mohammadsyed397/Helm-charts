@@ -1,24 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: helm-demo
+  name: nginx
+  # deployment labels
   labels:
-    purpose: demo
-    component: helm
+    purpose: deployment-demo
+    project: roboshop
+    app: nginx
 spec:
-  replicas: {{ .values.deployment.replicas }}
+  replicas: {{ .Values.deployment.replicas }}
+  # These are the labels replica set use to create pod replicas, this should match pod labels
   selector:
     matchLabels:
-      purpose: demo
-      component: helm
+      purpose: deployment-demo
+      project: roboshop
+      app: nginx
+  # This is pod definition
   template:
     metadata:
-      name: helm-demo
       labels:
-        purpose: demo
-        component: helm
-  spec: 
-    containers:
-       - name: nginx
-         image: {{ .values.deployment.nginx }}
-
+        purpose: deployment-demo
+        project: roboshop
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:{{ .Values.deployment.imageVersion }}
