@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helm-demo
+  labels:
+    purpose: demo
+    component: helm
+spec:
+  replicas: {{ .values.deployment.replicas }}
+  selector:
+    matchLabels:
+      purpose: demo
+      component: helm
+  template:
+    metadata:
+      name: helm-demo
+      labels:
+        purpose: demo
+        component: helm
+  spec: 
+    containers:
+       - name: nginx
+         image: {{ .values.deployment.nginx }}
+

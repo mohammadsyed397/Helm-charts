@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: helm-demo-service
+  labels:
+    purpose: demo
+    component: helm
+spec:
+  selector:
+    purpose: demo
+    component: helm
+  ports:
+    - port: 80
+      targetPort: {{ .values.service.targetPort }}
+      protocol: TCP
